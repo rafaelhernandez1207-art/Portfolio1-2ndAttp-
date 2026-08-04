@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e7a009e1-44b7-4207-9e1d-88a39df25c73}</ProjectGuid>
-    <RootNamespace>FirstApplication</RootNamespace>
+    <ProjectGuid>{874e08be-9986-49e7-a6d6-ae402d632d7a}</ProjectGuid>
+    <RootNamespace>RPGBattle</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FirstApplication.cpp" />
+    <ClCompile Include="RPGBattle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

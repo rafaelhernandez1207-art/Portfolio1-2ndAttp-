@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="FirstApplication/FirstApplication.vcxproj" />
+  <Project Path="RPGBattle/RPGBattle.vcxproj" />
 </Solution>

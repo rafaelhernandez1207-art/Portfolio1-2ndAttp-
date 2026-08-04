@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FirstApplication.cpp">
+    <ClCompile Include="RPGBattle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
