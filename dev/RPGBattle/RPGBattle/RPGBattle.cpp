@@ -2,10 +2,23 @@
 //
 
 #include <iostream>
-
+#include <string>
+void DisplayMessage(std::string message);
+void PressEnterToContinue();
 int main()
 {
-    std::cout << "Hello World!\n";
+    DisplayMessage("Hello Player! Welcome to my first game!");
+    DisplayMessage("Here you will fight monsters in several floors...");
+    DisplayMessage("Beat all of them and you beat the game!");
+    DisplayMessage("However... If you lose, you will have to start all over again");
+    DisplayMessage("You will play as the hero and try to see if you can beat the floors.");
+    DisplayMessage("Now press Enter and type in the name of your Hero...");
+    system("cls");
+    std::string heroName = "";
+    std::cout << "Your Hero Name: \n";
+    std::getline(std::cin, heroName);
+    PressEnterToContinue();
+    DisplayMessage("Welcome " + heroName + "! I wish you luck!");
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
@@ -18,3 +31,19 @@ int main()
 //   4. Use the Error List window to view errors
 //   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
 //   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+void DisplayMessage(std::string message)
+{
+    system("cls");//It clears the screen first then displays the next output (in this case the message below)
+    std::cout << "==================================================================" << std::endl;
+    std::cout << "    " << message << "" << std::endl;
+    std::cout << "==================================================================\n\n" << std::endl;
+    PressEnterToContinue();
+    std::cout << "\n";
+}
+
+void PressEnterToContinue()
+{
+    std::cout << "Press Enter to Continue..." << std::endl;
+    std::cin.get();
+}
