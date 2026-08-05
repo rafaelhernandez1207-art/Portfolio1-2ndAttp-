@@ -3,12 +3,50 @@
 
 #include <iostream>
 #include <string>
-void DisplayMessage(std::string message);
-void PressEnterToContinue();
+void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
+void PressEnterToContinue(); //Instruct the user to hit Enter
+
 int main()
 {
-    DisplayMessage("Hello Player! Welcome to my first game!");
-    DisplayMessage("Here you will fight monsters in several floors...");
+    //Enum for Menu Options
+    //May add other options later (like a Load Game option)
+    enum HomeScreenMenuChoice
+    {
+        NewGame = 1,
+        Exit = 2
+    };
+    //Menu Loop 
+        std::string menuOption = "";//Variable outside for scoping reasons
+        int numMenuOption = 0;
+        bool exitGame = true;
+
+    do
+    {
+        system("cls");
+        std::cout << "===================================\n" << "\tRPG Battle\n" << "===================================\n\n";
+        std::cout << "1) New Game\n" 
+                  << "2) Exit\n"
+                  << "Type a number above: ";
+
+        
+        std::getline(std::cin, menuOption);
+        numMenuOption = stoi(menuOption);
+
+        if (numMenuOption < 1 || numMenuOption > 2)
+        {
+            DisplayMessage("Invalid input! Try again!");
+        }
+    } while (numMenuOption < 1 || numMenuOption > 2);
+    
+    do
+    {
+        numMenuOption;
+    } while (!exitGame);
+
+    PressEnterToContinue();
+
+    DisplayMessage("Hello Player! Welcome to my first game!"); 
+    DisplayMessage("Here you will fight monsters in several floors...");//
     DisplayMessage("Beat all of them and you beat the game!");
     DisplayMessage("However... If you lose, you will have to start all over again");
     DisplayMessage("You will play as the hero and try to see if you can beat the floors.");
