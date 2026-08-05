@@ -3,8 +3,11 @@
 
 #include <iostream>
 #include <string>
+
+//Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
 void PressEnterToContinue(); //Instruct the user to hit Enter
+std::string GameIntro();//Intro to the game and returns the user name
 
 int main()
 {
@@ -18,7 +21,7 @@ int main()
     //Menu Loop 
         std::string menuOption = "";//Variable outside for scoping reasons
         int numMenuOption = 0;
-        bool exitGame = true;
+        bool exitGame = false;
 
     do
     {
@@ -26,7 +29,7 @@ int main()
         std::cout << "===================================\n" << "\tRPG Battle\n" << "===================================\n\n";
         std::cout << "1) New Game\n" 
                   << "2) Exit\n"
-                  << "Type a number above: ";
+                  << "Type a number above then press Enter: ";
 
         
         std::getline(std::cin, menuOption);
@@ -38,25 +41,24 @@ int main()
         }
     } while (numMenuOption < 1 || numMenuOption > 2);
     
+    std::string playerName = "";
     do
-    {
-        numMenuOption;
+    { 
+        switch (numMenuOption)
+        {
+        case NewGame:
+            playerName = GameIntro(); //Loops at the moment
+            //exitGame = true;
+            break;
+        case Exit:
+            exitGame = true;//closes the console
+            break;
+        default:
+            break;
+        }
+        
     } while (!exitGame);
 
-    PressEnterToContinue();
-
-    DisplayMessage("Hello Player! Welcome to my first game!"); 
-    DisplayMessage("Here you will fight monsters in several floors...");//
-    DisplayMessage("Beat all of them and you beat the game!");
-    DisplayMessage("However... If you lose, you will have to start all over again");
-    DisplayMessage("You will play as the hero and try to see if you can beat the floors.");
-    DisplayMessage("Now press Enter and type in the name of your Hero...");
-    system("cls");
-    std::string heroName = "";
-    std::cout << "Your Hero Name: \n";
-    std::getline(std::cin, heroName);
-    PressEnterToContinue();
-    DisplayMessage("Welcome " + heroName + "! I wish you luck!");
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
@@ -84,4 +86,28 @@ void PressEnterToContinue()
 {
     std::cout << "Press Enter to Continue..." << std::endl;
     std::cin.get();
+}
+
+std::string GameIntro()
+{
+    DisplayMessage("Hello Player! Welcome to my first game!");
+    DisplayMessage("Here you will fight monsters in several floors...");//
+    DisplayMessage("Beat all of them and you beat the game!");
+    DisplayMessage("However... If you lose, you will have to start all over again!");
+    DisplayMessage("You will play as the hero and try to see if you can beat the floors.");
+    DisplayMessage("Now press Enter and type in the name of your Hero...");
+    system("cls");
+    std::string heroName = "";
+    do {
+        std::cout << "Type your Hero Name then press Enter: \n";
+        std::getline(std::cin, heroName);
+        if (heroName == "")
+        {
+            std::cout << "Name cannot be empty. Try again!\n\n";
+            PressEnterToContinue();
+        }
+    } while (heroName == "");
+    
+    DisplayMessage("Welcome " + heroName + "! I wish you luck!");
+    return heroName;
 }
