@@ -33,6 +33,7 @@ int main()
 
         
         std::getline(std::cin, menuOption);
+       
         numMenuOption = stoi(menuOption);
 
         if (numMenuOption < 1 || numMenuOption > 2)
@@ -48,7 +49,7 @@ int main()
         {
         case NewGame:
             playerName = GameIntro(); //Loops at the moment
-            //exitGame = true;
+            //exitGame = true; //Exiting is an Option
             break;
         case Exit:
             exitGame = true;//closes the console
