@@ -3,11 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include "Character.h"
 
 //Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
 void PressEnterToContinue(); //Instruct the user to hit Enter
 std::string GameIntro();//Intro to the game and returns the user name
+Character mainCharacter;
 
 int main()
 {
@@ -23,24 +25,32 @@ int main()
         int numMenuOption = 0;
         bool exitGame = false;
 
-    do
-    {
+    
         system("cls");
         std::cout << "===================================\n" << "\tRPG Battle\n" << "===================================\n\n";
         std::cout << "1) New Game\n" 
-                  << "2) Exit\n"
+                  << "2) Exit\n\n"
                   << "Type a number above then press Enter: ";
 
-        
+    while(true)
+    {  
         std::getline(std::cin, menuOption);
-       
-        numMenuOption = stoi(menuOption);
-
-        if (numMenuOption < 1 || numMenuOption > 2)
+        try
         {
-            DisplayMessage("Invalid input! Try again!");
+            numMenuOption = stoi(menuOption);
+
+                if (numMenuOption == 1 || numMenuOption == 2)
+                {
+                    break;
+                }
+                std::cout << "Invalid input, please enter 1 or 2: ";
         }
-    } while (numMenuOption < 1 || numMenuOption > 2);
+        catch(...)
+        {
+            std::cout << "Invalid input, please enter 1 or 2: ";
+        }
+        
+    }
     
     std::string playerName = "";
     do
@@ -110,5 +120,6 @@ std::string GameIntro()
     } while (heroName == "");
     
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
-    return heroName;
+    mainCharacter.SetName(heroName);
+    
 }
