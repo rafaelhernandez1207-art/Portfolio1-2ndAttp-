@@ -1,5 +1,17 @@
 #include "Character.h"
 
+Character::Character()
+{
+    mName = "Hero";
+    mHP = 100;
+    mMP = 100;
+    mAttack = 10;
+    mDefense = 10;
+    mMagic = 10;
+    mMagicDefense = 10;
+    mSpeed = 10;
+}
+
 std::string Character::GetName()
 {
     return mName;

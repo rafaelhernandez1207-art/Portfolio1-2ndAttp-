@@ -6,6 +6,7 @@ class Potion :
     int mHeal;
 
 public:
+    Potion();
 
     int GetHeal();
     void SetHeal(int heal);

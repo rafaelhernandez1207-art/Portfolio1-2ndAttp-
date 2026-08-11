@@ -1,5 +1,10 @@
 #include "Potion.h"
 
+Potion::Potion()
+{
+    mHeal = 20;
+}
+
 int Potion::GetHeal()
 {
     return mHeal;
