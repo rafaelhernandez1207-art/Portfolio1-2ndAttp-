@@ -45,8 +45,8 @@ void Heroes::UsePotion(std::vector<Heroes>& target, std::vector<Potion>& potions
                 if(numInput >= 0 && numInput < target.size()) 
                 {
                     target[numInput].SetHP(target[numInput].GetHP() + potions[potions.size() - 1].GetHeal());
-                    std::cout << target[numInput].GetName() << " has healed by " << potions[potions.size() - 1].GetHeal();
-                    std::cout << target[numInput].GetName() << ": " << target[numInput].GetHP();
+                    std::cout << "\n" << target[numInput].GetName() << " has healed by " << potions[potions.size() - 1].GetHeal() << "!\n";
+                    std::cout << target[numInput].GetName() << ": " << target[numInput].GetHP() << "\n";
                     potions.erase(potions.end() - 1);
                     
                     break;

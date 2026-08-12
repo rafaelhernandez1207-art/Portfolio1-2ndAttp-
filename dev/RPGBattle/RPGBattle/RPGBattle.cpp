@@ -129,7 +129,7 @@ std::string GameIntro()
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
     mainCharacter.SetName(heroName);
     
-    /*mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Tested just to see and works
-    PressEnterToContinue();*/
+    mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Tested just to see and works
+    PressEnterToContinue();
     return heroName;
 }
