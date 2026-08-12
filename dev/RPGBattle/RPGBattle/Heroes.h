@@ -13,5 +13,7 @@ public:
 
     std::vector<Potion> GetPotions();
     void SetPotions(std::vector<Potion> potions);
+
+    void UsePotion(std::vector<Heroes>& target, std::vector<Potion>& potions);
 };
 

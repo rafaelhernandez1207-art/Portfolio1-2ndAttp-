@@ -3,5 +3,7 @@
 class Enemy :
     public Character
 {
+public:
+    Enemy();
 };
 

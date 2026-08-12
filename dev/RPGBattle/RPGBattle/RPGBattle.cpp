@@ -4,12 +4,19 @@
 #include <iostream>
 #include <string>
 #include "Character.h"
+#include "Heroes.h"
+#include "Enemy.h"
 
 //Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
 void PressEnterToContinue(); //Instruct the user to hit Enter
-std::string GameIntro();//Intro to the game and returns the user name
-Character mainCharacter;
+std::string GameIntro();//Intro to the game 
+Heroes mainCharacter;
+Enemy enemy;
+std::vector<Heroes> allyTeam = {mainCharacter};
+std::vector<Enemy> enemyTeam;
+std::vector<Potion> mainCharactersPotions = {mainCharacter.GetPotions()};
+
 
 int main()
 {
@@ -122,4 +129,7 @@ std::string GameIntro()
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
     mainCharacter.SetName(heroName);
     
+    /*mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Tested just to see and works
+    PressEnterToContinue();*/
+    return heroName;
 }

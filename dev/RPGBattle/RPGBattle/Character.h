@@ -12,7 +12,6 @@ class Character
 	int mMagicDefense;
 	int mSpeed;
 	//A vector of Abilities(string name, int damage, int MPcost)
-	//A vector of Items
 
 public:
 	//Sort the order of characters by speed
