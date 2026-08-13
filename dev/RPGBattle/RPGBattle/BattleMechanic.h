@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Heroes.h"
+#include "Enemy.h"
 class BattleMechanic
 {
 public:
@@ -12,9 +14,8 @@ public:
 		Flee
 	};
 
-	std::string battleOption = "";
-	int numBattleOption = 0;
-	
-
+	static void PlayersBattleCommand(Heroes playersTurn, std::vector<Enemy> target);
+	void PlayerAttack(Heroes playersTurn, std::vector<Enemy> target);
+	void EnemyAttack(Enemy enemiesTurn, std::vector<Heroes> target);
 };
 

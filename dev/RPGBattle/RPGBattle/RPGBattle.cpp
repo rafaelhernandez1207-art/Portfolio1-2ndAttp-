@@ -15,7 +15,7 @@ std::string GameIntro();//Intro to the game
 Heroes mainCharacter;
 Enemy enemy;
 std::vector<Heroes> allyTeam = {mainCharacter};
-std::vector<Enemy> enemyTeam;
+std::vector<Enemy> enemyTeam = {enemy};
 std::vector<Potion> mainCharactersPotions = {mainCharacter.GetPotions()};
 
 
@@ -67,7 +67,7 @@ int main()
         {
         case NewGame:
             playerName = GameIntro(); //Loops at the moment
-            
+            BattleMechanic::PlayersBattleCommand(mainCharacter, enemyTeam);
             //exitGame = true; //Exiting is an Option
             break;
         case Exit:
@@ -133,7 +133,7 @@ std::string GameIntro()
     //mainCharacter.SetName(heroName);
     
     
-    mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
-    PressEnterToContinue();
-    return heroName;
+    //mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
+    //PressEnterToContinue();
+    return mainCharacter.GetName();
 }
