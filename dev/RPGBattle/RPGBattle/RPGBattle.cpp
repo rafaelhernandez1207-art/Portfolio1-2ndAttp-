@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Heroes.h"
 #include "Enemy.h"
+#include "BattleMechanic.h"
 
 //Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
@@ -66,6 +67,7 @@ int main()
         {
         case NewGame:
             playerName = GameIntro(); //Loops at the moment
+            
             //exitGame = true; //Exiting is an Option
             break;
         case Exit:
@@ -127,9 +129,11 @@ std::string GameIntro()
     } while (heroName == "");
     
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
-    mainCharacter.SetName(heroName);
+    mainCharacter.GetName() = heroName;
+    //mainCharacter.SetName(heroName);
     
-    mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Tested just to see and works
+    
+    mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
     PressEnterToContinue();
     return heroName;
 }
