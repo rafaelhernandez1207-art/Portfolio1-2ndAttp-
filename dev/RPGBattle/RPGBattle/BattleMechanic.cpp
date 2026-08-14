@@ -50,16 +50,47 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 	}
 }
 
-void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy>& target)
+void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
+{
+	if (target.size() == 1)
+	{
+		std::cout << enemiesTurn.GetName() << " attacks " << target[0].GetName()
+			<< " for " << enemiesTurn.GetAttack() << " Damage!\n";
+		target[0].SetHP(target[0].GetHP() - enemiesTurn.GetAttack());
+
+		std::cout << "===" << enemiesTurn.GetName() << "===" << std::endl;
+		std::cout << "HP: " << enemiesTurn.GetHP() << "\n" << std::endl;
+
+		std::cout << "===" << target[0].GetName() << "===" << std::endl;
+		std::cout << "HP: " << target[0].GetHP() << "\n" << std::endl; //LOOPS HERE
+	}
+	else
+	{
+		//int randNum = rand() % (max - min + 1) + min;
+		int min = 0;
+		int max = target.size();
+		std::vector<Heroes> tempVariable;
+		int index = 0;
+		index = rand() % (target.size());
+		
+		target[index].SetHP(target[index].GetHP() - enemiesTurn.GetAttack());
+
+		std::cout << enemiesTurn.GetName() << " attacks " << target[index].GetName()
+			<< " for " << enemiesTurn.GetAttack() << " Damage!\n";
+		target[index].SetHP(target[index].GetHP() - enemiesTurn.GetAttack());
+	}
+}
+
+void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy>& enemies)
 {
 	system("cls");
 	std::cout << "===" << playersTurn.GetName() << "===" << std::endl;
 	std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
 
-	for (int i = 0; i < target.size(); i++)
+	for (int i = 0; i < enemies.size(); i++)
 	{
-		std::cout << "===" << target[i].GetName() << "===" << std::endl;
-		std::cout << "HP: " << target[i].GetHP() << "\n" << std::endl;
+		std::cout << "===" << enemies[i].GetName() << "===" << std::endl;
+		std::cout << "HP: " << enemies[i].GetHP() << "\n" << std::endl;
 	}
 
 	std::cout << "\n<<<Battle Command>>>\n" << std::endl;
@@ -96,7 +127,7 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy
 		switch(numBattleOption)
 		{
 		case Attack:
-			PlayerAttack(playersTurn, target);
+			PlayerAttack(playersTurn, enemies);
 			break;
 		case Defend:
 			

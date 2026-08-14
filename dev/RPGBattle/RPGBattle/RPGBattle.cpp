@@ -13,6 +13,7 @@ void DisplayMessage(std::string message);//Has a simple text box around the text
 void PressEnterToContinue(); //Instruct the user to hit Enter
 std::string GameIntro();//Intro to the game 
 Heroes mainCharacter;
+std::string heroName = "";
 Enemy enemy;
 std::vector<Heroes> allyTeam = {mainCharacter};
 std::vector<Enemy> enemyTeam = {enemy};
@@ -68,6 +69,7 @@ int main()
         case NewGame:
             mainCharacter.GetName() = GameIntro(); //Loops at the moment
             BattleMechanic::PlayersBattleCommand(mainCharacter, enemyTeam);
+            BattleMechanic::EnemyAttack(enemy, allyTeam);
             //exitGame = true; //Exiting is an Option
             break;
         case Exit:
@@ -117,7 +119,7 @@ std::string GameIntro()
     DisplayMessage("You will play as the hero and try to see if you can beat the floors.");
     DisplayMessage("Now press Enter and type in the name of your Hero...");
     system("cls");
-    std::string heroName = "";
+    
     do {
         std::cout << "Type your Hero Name then press Enter: \n";
         std::getline(std::cin, heroName);
@@ -130,10 +132,10 @@ std::string GameIntro()
     
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
    
-    //mainCharacter.SetName(heroName);
+    mainCharacter.SetName(heroName);
     
     
     //mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
     //PressEnterToContinue();
-    return heroName;
+    return mainCharacter.GetName();;
 }
