@@ -60,13 +60,13 @@ int main()
         
     }
     
-    std::string playerName = "";
+    
     do
     { 
         switch (numMenuOption)
         {
         case NewGame:
-            playerName = GameIntro(); //Loops at the moment
+            mainCharacter.GetName() = GameIntro(); //Loops at the moment
             BattleMechanic::PlayersBattleCommand(mainCharacter, enemyTeam);
             //exitGame = true; //Exiting is an Option
             break;
@@ -129,11 +129,11 @@ std::string GameIntro()
     } while (heroName == "");
     
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
-    mainCharacter.GetName() = heroName;
+   
     //mainCharacter.SetName(heroName);
     
     
     //mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
     //PressEnterToContinue();
-    return mainCharacter.GetName();
+    return heroName;
 }

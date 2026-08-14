@@ -14,8 +14,10 @@ public:
 		Flee
 	};
 
-	static void PlayersBattleCommand(Heroes playersTurn, std::vector<Enemy> target);
-	void PlayerAttack(Heroes playersTurn, std::vector<Enemy> target);
-	void EnemyAttack(Enemy enemiesTurn, std::vector<Heroes> target);
+	static void PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target);
+	void EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target);
+
+	static void PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy>& target);
+	
 };
 

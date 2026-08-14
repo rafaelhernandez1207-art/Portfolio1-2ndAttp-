@@ -45,5 +45,7 @@ public:
 
 	int GetSpeed();
 	void SetSpeed(int speed);
+
+	bool isAlive(Character statusCheck);
 };
 
