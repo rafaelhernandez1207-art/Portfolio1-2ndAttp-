@@ -102,7 +102,7 @@ void DisplayMessage(std::string message)
     std::cout << "\n";
 }
 
-void PressEnterToContinue()
+static void PressEnterToContinue()
 {
     std::cout << "Press Enter to Continue..." << std::endl;
     std::cin.get();

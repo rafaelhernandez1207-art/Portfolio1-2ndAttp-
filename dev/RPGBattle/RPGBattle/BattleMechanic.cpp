@@ -65,7 +65,8 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy
 	std::cout << "\n<<<Battle Command>>>\n" << std::endl;
 	std::cout << "1. Attack\n";
 	std::cout << "2. Defend\n";
-	std::cout << "3. Run away like your Life Depends on it! RETREAT!\n";
+	std::cout << "3. Use Item\n";
+	std::cout << "4. Run away like your Life Depends on it! RETREAT!\n";
 
 	std::string battleOption = "";//Variable outside for scoping reasons
 	int numBattleOption = 0;
@@ -78,15 +79,15 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy
 		{
 			numBattleOption = stoi(battleOption);
 
-			if (numBattleOption > 0 && numBattleOption < 4)
+			if (numBattleOption > 0 && numBattleOption < 5)
 			{
 				break;
 			}
-			std::cout << "Invalid input, please enter 1 or 2: ";
+			std::cout << "Invalid input, please enter 1 thru 4: ";
 		}
 		catch (...)
 		{
-			std::cout << "Invalid input, please enter 1 or 2: ";
+			std::cout << "Invalid input, please enter 1 thru 4: ";
 		}
 
 	}
@@ -100,8 +101,14 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy
 		case Defend:
 			
 			break;
+		case UseItem:
+
+			break;
 		case Flee:
-			
+			std::cout << "You have successfully Fled!!\n";
+			std::cin.get();
+			std::cout << "\nPress Enter to continue...\n";
+			exitBattle = true;
 			break;
 		default:
 			break;
