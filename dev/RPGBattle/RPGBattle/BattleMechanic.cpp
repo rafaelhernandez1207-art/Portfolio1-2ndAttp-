@@ -7,6 +7,7 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 		std::cout << playersTurn.GetName() << " attacks " << target[0].GetName()
 			<< " for " << playersTurn.GetAttack() << " Damage!\n";
 		target[0].SetHP(target[0].GetHP() - playersTurn.GetAttack());
+		target[0].SetHP((target[0].GetHP() >= 0) ? target[0].GetHP() : 0); //Prevents HP from going below zero
 
 		std::cout << "===" << playersTurn.GetName() << "===" << std::endl;
 		std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
@@ -38,6 +39,7 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 						<< " for " << playersTurn.GetAttack() << " Damage!\n";
 
 					target[numTargetInput - 1].SetHP(target[numTargetInput - 1].GetHP() - playersTurn.GetAttack());
+					target[numTargetInput - 1].SetHP((target[numTargetInput - 1].GetHP() >= 0) ? target[numTargetInput - 1].GetHP() : 0);
 					break;
 				}
 				std::cout << "Invalid input, please enter a number between 1 or " << target.size() << ": ";
@@ -57,6 +59,7 @@ void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
 		std::cout << enemiesTurn.GetName() << " attacks " << target[0].GetName()
 			<< " for " << enemiesTurn.GetAttack() << " Damage!\n";
 		target[0].SetHP(target[0].GetHP() - enemiesTurn.GetAttack());
+		target[0].SetHP((target[0].GetHP() >= 0) ? target[0].GetHP() : 0);
 
 		std::cout << "===" << enemiesTurn.GetName() << "===" << std::endl;
 		std::cout << "HP: " << enemiesTurn.GetHP() << "\n" << std::endl;
@@ -74,6 +77,7 @@ void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
 		index = rand() % (target.size());
 		
 		target[index].SetHP(target[index].GetHP() - enemiesTurn.GetAttack());
+		target[index].SetHP((target[index].GetHP() >= 0) ? target[index].GetHP() : 0);
 
 		std::cout << enemiesTurn.GetName() << " attacks " << target[index].GetName()
 			<< " for " << enemiesTurn.GetAttack() << " Damage!\n";
