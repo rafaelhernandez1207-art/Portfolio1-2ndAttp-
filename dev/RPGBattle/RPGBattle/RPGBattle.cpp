@@ -3,11 +3,22 @@
 
 #include <iostream>
 #include <string>
+#include "Character.h"
+#include "Heroes.h"
+#include "Enemy.h"
+#include "BattleMechanic.h"
 
 //Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
 void PressEnterToContinue(); //Instruct the user to hit Enter
-std::string GameIntro();//Intro to the game and returns the user name
+std::string GameIntro();//Intro to the game 
+Heroes mainCharacter;
+std::string heroName = "";
+Enemy enemy;
+std::vector<Heroes> allyTeam = {mainCharacter};
+std::vector<Enemy> enemyTeam = {enemy};
+std::vector<Potion> mainCharactersPotions = {mainCharacter.GetPotions()};
+
 
 int main()
 {
@@ -23,32 +34,42 @@ int main()
         int numMenuOption = 0;
         bool exitGame = false;
 
-    do
-    {
+    
         system("cls");
         std::cout << "===================================\n" << "\tRPG Battle\n" << "===================================\n\n";
         std::cout << "1) New Game\n" 
-                  << "2) Exit\n"
+                  << "2) Exit\n\n"
                   << "Type a number above then press Enter: ";
 
-        
+    while(true)
+    {  
         std::getline(std::cin, menuOption);
-       
-        numMenuOption = stoi(menuOption);
-
-        if (numMenuOption < 1 || numMenuOption > 2)
+        try
         {
-            DisplayMessage("Invalid input! Try again!");
+            numMenuOption = stoi(menuOption);
+
+                if (numMenuOption == 1 || numMenuOption == 2)
+                {
+                    break;
+                }
+                std::cout << "Invalid input, please enter 1 or 2: ";
         }
-    } while (numMenuOption < 1 || numMenuOption > 2);
+        catch(...)
+        {
+            std::cout << "Invalid input, please enter 1 or 2: ";
+        }
+        
+    }
     
-    std::string playerName = "";
+    
     do
     { 
         switch (numMenuOption)
         {
         case NewGame:
-            playerName = GameIntro(); //Loops at the moment
+            mainCharacter.GetName() = GameIntro(); //Loops at the moment
+            BattleMechanic::PlayersBattleCommand(mainCharacter, enemyTeam);
+            BattleMechanic::EnemyAttack(enemy, allyTeam);
             //exitGame = true; //Exiting is an Option
             break;
         case Exit:
@@ -83,7 +104,7 @@ void DisplayMessage(std::string message)
     std::cout << "\n";
 }
 
-void PressEnterToContinue()
+static void PressEnterToContinue()
 {
     std::cout << "Press Enter to Continue..." << std::endl;
     std::cin.get();
@@ -98,7 +119,7 @@ std::string GameIntro()
     DisplayMessage("You will play as the hero and try to see if you can beat the floors.");
     DisplayMessage("Now press Enter and type in the name of your Hero...");
     system("cls");
-    std::string heroName = "";
+    
     do {
         std::cout << "Type your Hero Name then press Enter: \n";
         std::getline(std::cin, heroName);
@@ -110,5 +131,11 @@ std::string GameIntro()
     } while (heroName == "");
     
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
-    return heroName;
+   
+    mainCharacter.SetName(heroName);
+    
+    
+    //mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
+    //PressEnterToContinue();
+    return mainCharacter.GetName();;
 }

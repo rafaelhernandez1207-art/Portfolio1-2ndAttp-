@@ -12,11 +12,11 @@ class Character
 	int mMagicDefense;
 	int mSpeed;
 	//A vector of Abilities(string name, int damage, int MPcost)
-	//A vector of Items
 
 public:
 	//Sort the order of characters by speed
 	//Each character will have a turn
+	Character();
 	Character(std::string name, int HP, int MP, int attack, int defense, int magic, int magicDefense, int speed) :
 		mName(name), mHP(HP), mMP(MP), mAttack(attack), mDefense(defense),
 		mMagic(magic), mMagicDefense(magicDefense), mSpeed(speed) 
@@ -45,5 +45,7 @@ public:
 
 	int GetSpeed();
 	void SetSpeed(int speed);
+
+	bool isAlive(Character statusCheck);
 };
 

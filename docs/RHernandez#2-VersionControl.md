@@ -23,23 +23,24 @@ List the correct Terminal commands to do the actions listed below. Replace **CMD
 
 **The last bullet provides an example**.
 
-- [ CMD ]: Clear the Screen
-- [ CMD ]: Print the "Working Directory"
-- [ CMD ]: List files and folders
-- [ CMD ]: List files and folders, including invisible files
-- [ CMD ]: List all files and folders, in human readable form
-- [ CMD ]: Change directory
-- [ CMD ]: Change directory, go to root directory
-- [ CMD ]: Change directory and go to user home directory
-- [ CMD ]: Change directory, go up one folder level
-- [ CMD ]: Change directory, go up two folder levels
-- [ CMD ]: Change directory to my desktop!
+- [ clear/ CTRL L ]: Clear the Screen
+- [ pwd ]: Print the "Working Directory"
+- [ ls ]: List files and folders
+- [ ls -a]: List files and folders, including invisible files
+- [ ls -al ]: List all files and folders, in human readable form
+- [ cd ]: Change directory
+- [ cd / ]: Change directory, go to root directory
+- [ cd ~ ]: Change directory and go to user home directory
+- [ cd.. ]: Change directory, go up one folder level
+- [ cd../.. ]: Change directory, go up two folder levels
+- [ cd~/Desktop ]: Change directory to my desktop!
 
 **2. Using Terminal...**
 
 **Folder Drop:** Try typing "cd" followed by a space, and then drag a folder into terminal and press return. Test this out and describe your results below.
 
-[ Describe Results Here ]
+[ cd  ]
+-It opens the file in Visual Studio.
 
 ## Topic: Version Control & Git
 
@@ -53,7 +54,7 @@ Version control, also known as revision control, records changes to a file or se
 
 List the correct Git commands to do the actions listed below in Terminal. Replace CMD with the correct command and keep or enhance the brief description.
 
-- [ CMD ]: Clone a repository
+- [ In github, go to your repo and click on code. Then go to visual studio to clone it and paste the repo]: Clone a repository
 - [ CMD ]: Set-up a global user name
 - [ CMD ]: Set-up a global email address (to match my GitHub account email)
 - [ CMD ]: Shows the current state of your directory and staging area
@@ -71,12 +72,10 @@ HTTPS is the the correct way to connect to GitHub in this course. Describe how y
 Most repositories contain a .gitignore file.
 
 - What is the purpose of this file?
-  <br>
-  [Fill in answer here]
+  If I understand it right, it tells Git what files to ignore in case there is something you don't want it to read or keep track of.
 
 - What is the "**.DS_Store**" file and why would you want to ignore it?
-  <br>
-  [Fill in answer here]
+  I'm not sure what it is exactly besides standing for "Desktop Service Store" but I know it should be ignored because it doesn't really matter much for the project itself and seems like it would cause problems if it was included.
 
 - What other file or folder would you want to add to a .gitignore file and why?
   <br>
