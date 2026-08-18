@@ -70,7 +70,7 @@ int main()
             mainCharacter.GetName() = GameIntro(); //Loops at the moment
             BattleMechanic::PlayersBattleCommand(mainCharacter, enemyTeam);
             BattleMechanic::EnemyAttack(enemy, allyTeam);
-            //exitGame = true; //Exiting is an Option
+            exitGame = true; //Exiting is an Option
             break;
         case Exit:
             exitGame = true;//closes the console
