@@ -4,18 +4,18 @@
 #include "Heroes.h"
 class TurnOrder
 {
-	bool mIsCharacter;
+	bool mIsHero;
 	int mIndex;
 
 public:
 
-	bool GetBoolCharacter();
-	void SetBoolCharacter(bool isCharacter);
+	bool GetIsHero();
+	void SetIsHero(bool isHero);
 
 	int GetIndex();
 	void SetIndex(int index);
 
-	std::vector<TurnOrder> CreateTurnOrder(std::vector<Heroes> heroes, std::vector<Enemy> enemies);
+	std::vector<TurnOrder> CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies);
 
 };
 

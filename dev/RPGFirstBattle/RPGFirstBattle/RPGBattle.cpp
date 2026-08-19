@@ -7,6 +7,7 @@
 #include "Heroes.h"
 #include "Enemy.h"
 #include "BattleMechanic.h"
+#include "TurnOrder.h"
 
 //Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
@@ -18,10 +19,16 @@ Enemy enemy;
 std::vector<Heroes> allyTeam = {mainCharacter};
 std::vector<Enemy> enemyTeam = {enemy};
 std::vector<Potion> mainCharactersPotions = {mainCharacter.GetPotions()};
+std::vector<Character> characters = { mainCharacter, enemy };
 
 
 int main()
 {
+    TurnOrder turn;
+    std::vector<TurnOrder> turnOrder;
+    enemy.SetSpeed(12);
+    turnOrder = turn.CreateTurnOrder(allyTeam, enemyTeam);
+    
     //Enum for Menu Options
     //May add other options later (like a Load Game option)
     enum HomeScreenMenuChoice
