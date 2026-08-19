@@ -159,8 +159,8 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Enemy
 		{
 		case Attack:
 			PlayerAttack(playersTurn, enemies);
-			exitBattle = true;
-			break;
+			//exitBattle = true;
+			return;
 		case Defend:
 			
 			break;

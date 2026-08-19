@@ -15,7 +15,7 @@ public:
 	int GetIndex();
 	void SetIndex(int index);
 
-	std::vector<TurnOrder> CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies);
+	static void CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies, std::vector<TurnOrder>& turn);
 
 };
 

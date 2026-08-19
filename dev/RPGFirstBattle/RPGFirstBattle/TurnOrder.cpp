@@ -1,5 +1,6 @@
 #include "TurnOrder.h"
 #include <iostream>
+#include "BattleMechanic.h"
 
 bool TurnOrder::GetIsHero()
 {
@@ -21,7 +22,7 @@ void TurnOrder::SetIndex(int index)
     mIndex = index;
 }
 
-std::vector<TurnOrder> TurnOrder::CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
+void TurnOrder::CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies, std::vector<TurnOrder>& turn)
 {
     std::vector<TurnOrder> turnOrder; //will have a sorted vector of both vectors
 
@@ -41,16 +42,20 @@ std::vector<TurnOrder> TurnOrder::CreateTurnOrder(std::vector<Heroes>& heroes, s
             {
                 if (!turnOrder[k].GetIsHero() && turnOrder[k].GetIndex() == j)
                 {
-                    //std::cout << heroes[j].GetName();
+                    
                     alreadyAdded = true;
                     break;
                 }
             }
-            if (!alreadyAdded && heroes[j].GetHP() > 0 && heroes[j].GetSpeed() > fastestSpeed) //loop between every hero until I get the fastest one
+            if (!alreadyAdded && heroes[j].GetHP() > 0) //loop between every hero until I get the fastest one
             {
-                fastestSpeed = heroes[j].GetSpeed(); //replace fastestSpeed until another characters speed beats it
-                fastestIndex = j; //Store the index of the current fastest hero
-                fastestIsHero = true; //It is a hero
+                if (heroes[j].GetSpeed() > fastestSpeed || heroes[j].GetSpeed() == fastestSpeed && fastestIsHero == false)
+                {
+                    fastestSpeed = heroes[j].GetSpeed(); //replace fastestSpeed until another characters speed beats it
+                    fastestIndex = j; //Store the index of the current fastest hero
+                    fastestIsHero = true; //It is a hero
+                }
+                
             }
         }
 
@@ -62,28 +67,42 @@ std::vector<TurnOrder> TurnOrder::CreateTurnOrder(std::vector<Heroes>& heroes, s
             {
                 if (!turnOrder[m].GetIsHero() && turnOrder[m].GetIndex() == l)
                 {
-                    //std::cout << enemies[l].GetName();
+                   
                     alreadyAdded = true;
                     break;
                 }
             }
 
-            if ((!alreadyAdded) && (enemies[l].GetHP() > 0) && (enemies[l].GetSpeed() > fastestSpeed))
+            if ((!alreadyAdded) && (enemies[l].GetHP() > 0))
             {
-                fastestSpeed = enemies[l].GetSpeed();
-                fastestIndex = l;
-                fastestIsHero = false; //Not a hero
+                if (enemies[l].GetSpeed() > fastestSpeed)
+                {
+                    fastestSpeed = enemies[l].GetSpeed();
+                    fastestIndex = l;
+                    fastestIsHero = false; //Not a hero
+                }
+               
             }
         }
-        if (fastestIndex == -1) //If vector is empty or everyone is dead
-            break;
+        if (fastestIndex != -1) //If vector is empty or everyone is dead
+        {
 
-        TurnOrder newTurn;
-        newTurn.SetIsHero(fastestIsHero);//Overwrite both TurnOrder parameter to know the index of Characters and if they are ally or enemy
-        newTurn.SetIndex(fastestIndex);
+            TurnOrder newTurn;
+            newTurn.SetIsHero(fastestIsHero);//Overwrite both TurnOrder parameter to know the index of Characters and if they are ally or enemy
+            newTurn.SetIndex(fastestIndex);
 
-        turnOrder.push_back(newTurn);
+            turnOrder.push_back(newTurn);
+            for (int n = 0; n < turnOrder.size(); n++)
+            {
+                if (turnOrder[n].GetIsHero() == true)
+                {
+                    BattleMechanic::PlayersBattleCommand(heroes[n], enemies);
+                }
+                if(turnOrder[n].GetIsHero() == false)
+                {
+                    BattleMechanic::EnemyAttack(enemies[n], heroes);
+                }
+            }
+        }
     }
-
-    return turnOrder;
 }

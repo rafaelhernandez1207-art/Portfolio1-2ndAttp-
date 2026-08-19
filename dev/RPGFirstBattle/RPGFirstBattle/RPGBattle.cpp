@@ -20,15 +20,11 @@ std::vector<Heroes> allyTeam = {mainCharacter};
 std::vector<Enemy> enemyTeam = {enemy};
 std::vector<Potion> mainCharactersPotions = {mainCharacter.GetPotions()};
 std::vector<Character> characters = { mainCharacter, enemy };
+std::vector<TurnOrder> turn;
 
 
 int main()
 {
-    TurnOrder turn;
-    std::vector<TurnOrder> turnOrder;
-    enemy.SetSpeed(12);
-    turnOrder = turn.CreateTurnOrder(allyTeam, enemyTeam);
-    
     //Enum for Menu Options
     //May add other options later (like a Load Game option)
     enum HomeScreenMenuChoice
@@ -75,8 +71,7 @@ int main()
         {
         case NewGame:
             mainCharacter.GetName() = GameIntro(); //Loops at the moment
-            BattleMechanic::PlayersBattleCommand(mainCharacter, enemyTeam);
-            BattleMechanic::EnemyAttack(enemy, allyTeam);
+            TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
             exitGame = true; //Exiting is an Option
             break;
         case Exit:
