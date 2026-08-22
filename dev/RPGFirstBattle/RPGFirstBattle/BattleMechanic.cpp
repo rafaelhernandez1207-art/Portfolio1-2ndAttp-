@@ -53,7 +53,6 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 						{
 							isAlive = false;
 						}
-						break;
 					}
 					std::cout << "Invalid input, please enter a number between 1 or " << target.size() << ": ";
 				}
