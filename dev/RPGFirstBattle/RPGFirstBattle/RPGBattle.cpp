@@ -12,16 +12,7 @@
 //Methods before main are foward declarations defined at the bottom
 void DisplayMessage(std::string message);//Has a simple text box around the text, just for looks
 void PressEnterToContinue(); //Instruct the user to hit Enter
-std::string GameIntro();//Intro to the game 
-Heroes mainCharacter;
-std::string heroName = "";
-Enemy enemy;
-std::vector<Heroes> allyTeam = {mainCharacter};
-std::vector<Enemy> enemyTeam = {enemy};
-std::vector<Potion> mainCharactersPotions = {mainCharacter.GetPotions()};
-std::vector<Character> characters = { mainCharacter, enemy };
-std::vector<TurnOrder> turn;
-
+void GameIntro();//Intro to the game 
 
 int main()
 {
@@ -64,18 +55,18 @@ int main()
         
     }
     
-    
     do
     { 
         switch (numMenuOption)
         {
         case NewGame:
-            mainCharacter.GetName() = GameIntro(); //Loops at the moment
-            TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
-            exitGame = true; //Exiting is an Option
+            GameIntro(); //Loops at the moment
+            //TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
+           
             break;
         case Exit:
             exitGame = true;//closes the console
+            std::cout << "Press Enter again to close the Game...\n\n\n";
             break;
         default:
             break;
@@ -84,17 +75,6 @@ int main()
     } while (!exitGame);
 
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
 
 void DisplayMessage(std::string message)
 {
@@ -112,8 +92,14 @@ static void PressEnterToContinue()
     std::cin.get();
 }
 
-std::string GameIntro()
+void GameIntro()
 {
+    Heroes mainCharacter;
+    std::string heroName = "";
+    Enemy enemy;
+    
+    std::vector<Potion> mainCharactersPotions = { mainCharacter.GetPotions() };
+    
     DisplayMessage("Hello Player! Welcome to my first game!");
     DisplayMessage("Here you will fight monsters in several floors...");//
     DisplayMessage("Beat all of them and you beat the game!");
@@ -135,9 +121,12 @@ std::string GameIntro()
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
    
     mainCharacter.SetName(heroName);
-    
+    std::vector<Heroes> allyTeam = { mainCharacter };
+    std::vector<Enemy> enemyTeam = { enemy };
+    std::vector<TurnOrder> turn;
+    TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
     
     //mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
     //PressEnterToContinue();
-    return mainCharacter.GetName();;
+    
 }

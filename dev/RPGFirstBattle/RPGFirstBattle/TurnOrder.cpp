@@ -94,9 +94,9 @@ void TurnOrder::CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>&
             turnOrder.push_back(newTurn);
             for (int n = 0; n < turnOrder.size(); n++)
             {
-                if (turnOrder[n].GetIsHero() == true)
+                if (turnOrder[n].GetIsHero() == true)//How to loop properly
                 {
-                    BattleMechanic::PlayersBattleCommand(heroes[n], enemies);
+                    BattleMechanic::PlayersBattleCommand(heroes[n], heroes, enemies);
                 }
                 if(turnOrder[n].GetIsHero() == false)
                 {

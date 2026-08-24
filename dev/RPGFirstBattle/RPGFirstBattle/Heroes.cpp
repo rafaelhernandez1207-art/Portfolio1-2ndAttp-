@@ -19,9 +19,9 @@ void Heroes::SetPotions(std::vector<Potion> potions)
     mPotions = potions;
 }
 
-void Heroes::UsePotion(std::vector<Heroes>& target, std::vector<Potion>& potions)
+void Heroes::UsePotion(Heroes playersTurn, std::vector<Heroes>& target)
 {
-    if (!potions.empty())
+    if (!playersTurn.GetPotions().empty())
     {
         std::cout << "Choose an ally to heal: \n";
 
@@ -31,25 +31,24 @@ void Heroes::UsePotion(std::vector<Heroes>& target, std::vector<Potion>& potions
         }
 
         int numInput = 0;
-        std::string strInput = "";//Type 1
+        std::string strInput = "";
         
         std::cout << "\nType the number next to the Character you want to heal and press Enter: \n";
-        while (true)
-        {
+        
             std::getline(std::cin, strInput);
             try
             {
                 numInput = std::stoi(strInput);
                 numInput -= 1; //1 becomes Index 0
 
-                if(numInput >= 0 && numInput < target.size()) 
+                if(numInput >= 0 && numInput < target.size()) //3
                 {
-                    target[numInput].SetHP(target[numInput].GetHP() + potions[potions.size() - 1].GetHeal());
-                    std::cout << "\n" << target[numInput].GetName() << " has healed by " << potions[potions.size() - 1].GetHeal() << "!\n";
+                    target[numInput].GetPotions();
+                    target[numInput].SetHP(target[numInput].GetHP() + playersTurn.GetPotions()[playersTurn.GetPotions().size() - 1].GetHeal());
+                    std::cout << "\n" << target[numInput].GetName() << " has healed by " << playersTurn.GetPotions()[playersTurn.GetPotions().size() - 1].GetHeal() << "!\n";
                     std::cout << target[numInput].GetName() << ": " << target[numInput].GetHP() << "\n";
-                    potions.erase(potions.end() - 1);
-                    
-                    break;
+                    playersTurn.GetPotions().pop_back();
+                  
                 }
                 std::cout << "Invalid input, please Enter a number between " << 1 << " and " << target.size() << "...\n";
             }
@@ -57,10 +56,6 @@ void Heroes::UsePotion(std::vector<Heroes>& target, std::vector<Potion>& potions
             {
                 std::cout << "Invalid input, please Enter a number between " << 1 << " and " << target.size() << "...\n";
             }
-        }
-       
-
-        
     }
     else
     {
