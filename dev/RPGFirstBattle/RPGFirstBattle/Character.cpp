@@ -91,3 +91,5 @@ void Character::SetSpeed(int speed)
 {
     mSpeed = speed;
 }
+
+
