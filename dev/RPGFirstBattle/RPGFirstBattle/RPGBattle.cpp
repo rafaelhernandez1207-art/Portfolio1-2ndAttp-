@@ -121,12 +121,14 @@ void GameIntro()
     DisplayMessage("Welcome " + heroName + "! I wish you luck!");
    
     mainCharacter.SetName(heroName);
+    Weapon sword(12);
+    mainCharacter.EquippedWeapon(mainCharacter, sword); //default weapon for now
+
     std::vector<Heroes> allyTeam = { mainCharacter };
     std::vector<Enemy> enemyTeam = { enemy };
     std::vector<TurnOrder> turn;
     TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
     
-    //mainCharacter.UsePotion(allyTeam, mainCharactersPotions);      //Does not update name from SetName
     //PressEnterToContinue();
     
 }
