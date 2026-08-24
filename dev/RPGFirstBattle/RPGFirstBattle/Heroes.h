@@ -2,6 +2,7 @@
 #include "Character.h"
 #include <vector>
 #include "Potion.h"
+#include "Weapon.h"
 class Heroes :
     public Character
 {
@@ -15,5 +16,6 @@ public:
     void SetPotions(std::vector<Potion> potions);
 
    static void UsePotion(Heroes playersTurn, std::vector<Heroes>& target);
+   void EquippedWeapon(Character& self, Weapon wpnPower);
 };
 

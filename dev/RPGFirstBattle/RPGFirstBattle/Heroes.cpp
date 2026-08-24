@@ -62,3 +62,8 @@ void Heroes::UsePotion(Heroes playersTurn, std::vector<Heroes>& target)
         std::cout << "There is no potions in your bag...\n" << std::endl;
     }
 }
+
+void Heroes::EquippedWeapon(Character& self, Weapon wpnPower)
+{
+    self.SetAttack((self.GetAttack() + wpnPower.GetWeaponDamage()));
+}
