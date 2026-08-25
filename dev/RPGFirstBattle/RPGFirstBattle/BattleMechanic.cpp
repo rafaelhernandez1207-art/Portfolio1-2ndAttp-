@@ -1,4 +1,5 @@
 #include "BattleMechanic.h"
+#include "TurnOrder.h"
 
 
 
@@ -142,84 +143,151 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 				std::cout << playersTurn.GetName() << std::endl;
 				std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
 		}
-				for (int i = 0; i < enemies.size(); i++)
-				{
-					if (enemies[i].GetHP() > 0)
-					{
-						std::cout << i + 1 << ") " << enemies[i].GetName() << std::endl;
-						std::cout << "HP: " << enemies[i].GetHP() << "\n" << std::endl;
-					}
-					else
-					{
-						enemyDeadCounter++;
-					}
-					if (enemyDeadCounter == enemies.size())
-					{
-						std::cout << "Congratulations! You have cleared the floor of enemeies!\n\n";
-						exitBattle = true;
-					}
-				}
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			if (enemies[i].GetHP() > 0)
+			{
+				std::cout << i + 1 << ") " << enemies[i].GetName() << std::endl;
+				std::cout << "HP: " << enemies[i].GetHP() << "\n" << std::endl;
+			}
+			else
+			{
+				enemyDeadCounter++;
+			}
+			if (enemyDeadCounter == enemies.size())
+			{
+				std::cout << "Congratulations! You have cleared the floor of enemeies!\n\n";
+				exitBattle = true;
+			}
+		}
 		
 		
 		if (exitBattle != true)
 		{
-		std::cout << "\n<<<Battle Command>>>\n" << std::endl;
-		std::cout << "1. Attack\n";
-		std::cout << "2. Defend\n";
-		std::cout << "3. Use Item\n";
-		std::cout << "4. Run away like your Life Depends on it! RETREAT!\n";
+			std::cout << "\n<<<Battle Command>>>\n" << std::endl;
+			std::cout << "1. Attack\n";
+			std::cout << "2. Defend\n";
+			std::cout << "3. Use Item\n";
+			std::cout << "4. Run away like your Life Depends on it! RETREAT!\n";
 
-		std::string battleOption = "";//Variable outside for scoping reasons
-		int numBattleOption = 0;
+			std::string battleOption = "";//Variable outside for scoping reasons
+			int numBattleOption = 0;
 		
 
-		while (true)
-		{
-			std::getline(std::cin, battleOption);
-			try
+			while (true)
 			{
-				numBattleOption = stoi(battleOption);
-
-				if (numBattleOption > 0 && numBattleOption < 5)
+				std::getline(std::cin, battleOption);
+				try
 				{
+					numBattleOption = stoi(battleOption);
+
+					if (numBattleOption > 0 && numBattleOption < 5)
+					{
+						break;
+					}
+					std::cout << "Invalid input, please enter 1 thru 4: ";
+				}
+				catch (...)
+				{
+					std::cout << "Invalid input, please enter 1 thru 4: ";
+				}
+
+			}
+
+			switch(numBattleOption)
+			{
+				case Attack:
+					PlayerAttack(playersTurn, enemies);
 					break;
-				}
-				std::cout << "Invalid input, please enter 1 thru 4: ";
-			}
-			catch (...)
-			{
-				std::cout << "Invalid input, please enter 1 thru 4: ";
-			}
-
-		}
-
-				switch(numBattleOption)
-				{
-					case Attack:
-						PlayerAttack(playersTurn, enemies);
-						//exitBattle = true;
-						break;
-					case Defend:
+				case Defend:
 			
-						break;
-					case UseItem:
-						Heroes::UsePotion(playersTurn, party);
-						break;
-					case Flee:
-						std::cout << "You have successfully Fled!!\n";
-						std::cin.get();
-						std::cout << "\nPress Enter to continue...\n";
-						exitBattle = true;
-						break;
-					default:
-						break;
-				}
-		
+					break;
+				case UseItem:
+					Heroes::UsePotion(playersTurn, party);
+					break;
+				case Flee:
+					std::cout << "You have successfully Fled!!\n";
+						
+					std::cout << "\nPress Enter to continue...\n";
+					exitBattle = true;
+					std::cin.get();
+					break;
+				default:
+					break;
+			}
+			//exitBattle;
+			if (enemies.size() < 1)
+			{
+				exitBattle = true;
+			}
 		}
-		if (enemies.size() < 1)
+		
+	} while (!exitBattle);//Endless loop
+}
+
+void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
+{
+	while (true)
+	{
+		bool heroesAlive = false;
+		bool enemiesAlive = false;
+
+		for (int i = 0; i < heroes.size(); i++)// Check if heroes living
 		{
-			exitBattle = true;
+			if (heroes[i].GetHP() > 0)
+			{
+				heroesAlive = true;
+				break;
+			}
+		}
+
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			if (enemies[i].GetHP() > 0)
+			{
+				enemiesAlive = true;
+				break;
+			}
+		}
+
+		if (!heroesAlive || !enemiesAlive)// Battle is over
+		{
 			break;
 		}
-	} while (!exitBattle);//Endless loop
+
+		std::vector<TurnOrder> turnOrder;
+
+		TurnOrder::CreateTurnOrder(heroes, enemies, turnOrder);
+
+		std::cout << "\n========== NEW ROUND ==========\n\n";
+
+		for (int i = 0; i < turnOrder.size(); i++)
+		{
+			TurnOrder currentTurn = turnOrder[i];
+
+			if (currentTurn.GetIsHero())// HERO TURN
+			{
+				if (heroes[currentTurn.GetIndex()].GetHP() <= 0)// Will skip hero if dead
+				{
+					continue;
+				}
+
+				PlayersBattleCommand(heroes[currentTurn.GetIndex()], heroes, enemies);
+
+				std::cout << "\n" << heroes[currentTurn.GetIndex()].GetName() << "'s turn!\n";
+
+				std::cout << "Choose an enemy:\n";// Display living enemies
+
+				for (int j = 0; j < enemies.size(); j++)
+				{
+					if (enemies[j].GetHP() > 0)
+					{
+						std::cout << j << " - " << enemies[j].GetName() << " HP: " << enemies[j].GetHP() << "\n";
+					}
+				}
+			}
+			
+
+		}
+	}
 }

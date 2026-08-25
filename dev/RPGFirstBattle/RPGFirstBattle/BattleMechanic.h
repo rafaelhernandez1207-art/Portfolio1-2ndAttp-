@@ -19,6 +19,6 @@ public:
 	static void EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target);
 
 	static void PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& target);
-	
+	void Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies);
 };
 
