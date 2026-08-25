@@ -2,6 +2,7 @@
 #include <string>
 class Character
 {
+
 	//private by default
 	std::string mName;
 	int mHP;
