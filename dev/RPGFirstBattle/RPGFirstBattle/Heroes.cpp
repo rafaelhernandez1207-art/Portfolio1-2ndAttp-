@@ -67,3 +67,4 @@ void Heroes::EquippedWeapon(Character& self, Weapon wpnPower)
 {
     self.SetAttack((self.GetAttack() + wpnPower.GetWeaponDamage()));
 }
+

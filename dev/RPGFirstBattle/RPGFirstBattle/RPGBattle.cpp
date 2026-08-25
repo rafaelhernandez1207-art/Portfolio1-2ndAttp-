@@ -61,6 +61,7 @@ int main()
         {
         case NewGame:
             GameIntro(); //Loops at the moment
+            exitGame = true;
             //TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
            
             break;

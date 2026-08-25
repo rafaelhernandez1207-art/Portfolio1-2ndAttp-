@@ -82,7 +82,7 @@ void Character::SetMagicDefense(int magicDefense)
     mMagicDefense = magicDefense;
 }
 
-int Character::GetSpeed()
+int const Character::GetSpeed()
 {
     return mSpeed;
 }

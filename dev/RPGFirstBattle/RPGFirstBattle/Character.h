@@ -44,7 +44,7 @@ public:
 	int GetMagicDefense();
 	void SetMagicDefense(int magicDefense);
 
-	int GetSpeed();
+	int const GetSpeed();
 	void SetSpeed(int speed);
 
 	

@@ -17,5 +17,6 @@ public:
 
    static void UsePotion(Heroes playersTurn, std::vector<Heroes>& target);
    void EquippedWeapon(Character& self, Weapon wpnPower);
+
 };
 

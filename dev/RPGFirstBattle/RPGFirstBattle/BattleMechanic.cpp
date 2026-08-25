@@ -135,24 +135,34 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 	do
 	{
 		system("cls");
-		
-		std::cout << playersTurn.GetName() << std::endl;
-		std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
+		int enemyDeadCounter = 0;
 
-		for (int i = 0; i < enemies.size(); i++)
+		if (exitBattle != true)
 		{
-			if (enemies[i].GetHP() > 0)
-			{
-				std::cout << i + 1 << ") " << enemies[i].GetName() << std::endl;
-				std::cout << "HP: " << enemies[i].GetHP() << "\n" << std::endl;
-			}
-			if (enemies[0].GetHP() <= 0)
-			{
-				exitBattle = true;
-				break;
-			}
+				std::cout << playersTurn.GetName() << std::endl;
+				std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
 		}
-
+				for (int i = 0; i < enemies.size(); i++)
+				{
+					if (enemies[i].GetHP() > 0)
+					{
+						std::cout << i + 1 << ") " << enemies[i].GetName() << std::endl;
+						std::cout << "HP: " << enemies[i].GetHP() << "\n" << std::endl;
+					}
+					else
+					{
+						enemyDeadCounter++;
+					}
+					if (enemyDeadCounter == enemies.size())
+					{
+						std::cout << "Congratulations! You have cleared the floor of enemeies!\n\n";
+						exitBattle = true;
+					}
+				}
+		
+		
+		if (exitBattle != true)
+		{
 		std::cout << "\n<<<Battle Command>>>\n" << std::endl;
 		std::cout << "1. Attack\n";
 		std::cout << "2. Defend\n";
@@ -182,32 +192,34 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 			}
 
 		}
-	
-		switch(numBattleOption)
-		{
-		case Attack:
-			PlayerAttack(playersTurn, enemies);
-			//exitBattle = true;
-			break;
-		case Defend:
+
+				switch(numBattleOption)
+				{
+					case Attack:
+						PlayerAttack(playersTurn, enemies);
+						//exitBattle = true;
+						break;
+					case Defend:
 			
-			break;
-		case UseItem:
-			Heroes::UsePotion(playersTurn, party);
-			break;
-		case Flee:
-			std::cout << "You have successfully Fled!!\n";
-			std::cin.get();
-			std::cout << "\nPress Enter to continue...\n";
-			exitBattle = true;
-			break;
-		default:
-			break;
+						break;
+					case UseItem:
+						Heroes::UsePotion(playersTurn, party);
+						break;
+					case Flee:
+						std::cout << "You have successfully Fled!!\n";
+						std::cin.get();
+						std::cout << "\nPress Enter to continue...\n";
+						exitBattle = true;
+						break;
+					default:
+						break;
+				}
+		
 		}
 		if (enemies.size() < 1)
 		{
 			exitBattle = true;
 			break;
 		}
-	} while (enemies[0].GetHP() > 0);//Endless loop
+	} while (!exitBattle);//Endless loop
 }
