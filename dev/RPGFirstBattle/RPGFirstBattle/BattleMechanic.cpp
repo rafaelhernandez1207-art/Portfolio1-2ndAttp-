@@ -79,54 +79,46 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
 {
 	bool isAlive = true;
-	
-		if (target.size() == 1)
+	if (target.size() != -1)
+	{
+		int damage = enemiesTurn.GetAttack();
+
+		
+
+		for (int i = 0; i < target.size(); i++)
 		{
-			std::cout << enemiesTurn.GetName() << " attacks " << target[0].GetName()
-				<< " for " << enemiesTurn.GetAttack() << " Damage!\n";
-			target[0].SetHP(target[0].GetHP() - enemiesTurn.GetAttack());
-			target[0].SetHP((target[0].GetHP() >= 0) ? target[0].GetHP() : 0);
-
-			std::cout << "===" << enemiesTurn.GetName() << "===" << std::endl;
-			std::cout << "HP: " << enemiesTurn.GetHP() << "\n" << std::endl;
-
-			std::cout << "===" << target[0].GetName() << "===" << std::endl;
-			std::cout << "HP: " << target[0].GetHP() << "\n" << std::endl; //LOOPS HERE
-			if (target[0].GetHP() == 0)
+			if (target[i].GetHP() <= 0)
 			{
-				std::cout << target[0].GetName() << " is Defeated!\n";
-				isAlive = false;
+				target.erase(target.begin() + i);
+				i -= 1;
 			}
 		}
-		else
+
+		int min = 0;
+		int max = target.size();
+		int index = 0;
+		index = rand() % (target.size());
+		if (target[index].GetDefending())
+			{
+				damage /= 2;
+
+				std::cout << " " << target[index].GetName() << " reduces the damage by " << damage / 2 << "!\n";
+			}
+
+		target[index].SetHP(target[index].GetHP() - damage);
+		target[index].SetHP((target[index].GetHP() >= 0) ? target[index].GetHP() : 0);
+
+		std::cout << enemiesTurn.GetName() << " attacks " << target[index].GetName()
+			<< " for " << damage << " Damage!\n";
+		std::cin.get();
+		std::cout << "Press Enter to continue\n\n";
+
+		if (target[index].GetHP() == 0)
 		{
-			//int randNum = rand() % (max - min + 1) + min;
-			for (int i = 0; i < target.size(); i++)
-			{
-				if (target[i].GetHP() <= 0)
-				{
-					target.erase(target.begin() + i);
-					i -= 1;
-				}
-			}
-			
-			int min = 0;
-			int max = target.size();
-			int index = 0;
-			index = rand() % (target.size());
-
-			target[index].SetHP(target[index].GetHP() - enemiesTurn.GetAttack());
-			target[index].SetHP((target[index].GetHP() >= 0) ? target[index].GetHP() : 0);
-
-			std::cout << enemiesTurn.GetName() << " attacks " << target[index].GetName()
-				<< " for " << enemiesTurn.GetAttack() << " Damage!\n";
-			target[index].SetHP(target[index].GetHP() - enemiesTurn.GetAttack());
-
-			if (target[index].GetHP() == 0)
-			{
-				isAlive = false;
-			}
+			isAlive = false;
 		}
+		target[index].SetDefending(false);//Defends for the end of the turn
+	}
 }
 
 bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& enemies)
@@ -160,7 +152,7 @@ bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 				std::getline(std::cin, battleOption);
 				try
 				{
-					numBattleOption = stoi(battleOption);
+					numBattleOption = std::stoi(battleOption);
 
 					if (numBattleOption > 0 && numBattleOption < 5)
 					{
@@ -182,7 +174,8 @@ bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 					return false;
 
 				case Defend:
-			
+					playersTurn.SetDefending(true);
+					std::cout << playersTurn.GetName() << " defends!";
 					return false;
 
 				case UseItem:

@@ -12,6 +12,8 @@ class Character
 	int mMagic;
 	int mMagicDefense;
 	int mSpeed;
+
+	bool mDefending = false; //In case I also want to use it for enemy
 	//A vector of Abilities(string name, int damage, int MPcost)
 
 public:
@@ -44,9 +46,10 @@ public:
 	int GetMagicDefense();
 	void SetMagicDefense(int magicDefense);
 
-	int const GetSpeed();
+	int GetSpeed();
 	void SetSpeed(int speed);
 
-	
+	bool GetDefending();
+	void SetDefending(bool defending);
 };
 

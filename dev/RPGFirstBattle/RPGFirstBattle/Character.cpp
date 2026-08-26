@@ -82,7 +82,7 @@ void Character::SetMagicDefense(int magicDefense)
     mMagicDefense = magicDefense;
 }
 
-int const Character::GetSpeed()
+int Character::GetSpeed()
 {
     return mSpeed;
 }
@@ -90,6 +90,16 @@ int const Character::GetSpeed()
 void Character::SetSpeed(int speed)
 {
     mSpeed = speed;
+}
+
+bool Character::GetDefending()
+{
+    return mDefending;
+}
+
+void Character::SetDefending(bool defending)
+{
+    mDefending = defending;
 }
 
 
