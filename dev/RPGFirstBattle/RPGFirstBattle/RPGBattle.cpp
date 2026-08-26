@@ -128,7 +128,7 @@ void GameIntro()
     std::vector<Heroes> allyTeam = { mainCharacter };
     std::vector<Enemy> enemyTeam = { enemy };
     std::vector<TurnOrder> turn;
-    TurnOrder::CreateTurnOrder(allyTeam, enemyTeam, turn);
+    BattleMechanic::Battle(allyTeam, enemyTeam);
     
     //PressEnterToContinue();
     

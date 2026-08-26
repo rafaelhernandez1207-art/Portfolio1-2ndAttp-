@@ -131,18 +131,11 @@ void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
 
 void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& enemies)
 {
-	
-	bool exitBattle = false;
-	do
-	{
 		system("cls");
-		int enemyDeadCounter = 0;
 
-		if (exitBattle != true)
-		{
 				std::cout << playersTurn.GetName() << std::endl;
 				std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
-		}
+		//}
 		for (int i = 0; i < enemies.size(); i++)
 		{
 			if (enemies[i].GetHP() > 0)
@@ -150,20 +143,8 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 				std::cout << i + 1 << ") " << enemies[i].GetName() << std::endl;
 				std::cout << "HP: " << enemies[i].GetHP() << "\n" << std::endl;
 			}
-			else
-			{
-				enemyDeadCounter++;
-			}
-			if (enemyDeadCounter == enemies.size())
-			{
-				std::cout << "Congratulations! You have cleared the floor of enemeies!\n\n";
-				exitBattle = true;
-			}
 		}
-		
-		
-		if (exitBattle != true)
-		{
+	
 			std::cout << "\n<<<Battle Command>>>\n" << std::endl;
 			std::cout << "1. Attack\n";
 			std::cout << "2. Defend\n";
@@ -209,20 +190,12 @@ void BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 					std::cout << "You have successfully Fled!!\n";
 						
 					std::cout << "\nPress Enter to continue...\n";
-					exitBattle = true;
 					std::cin.get();
 					break;
 				default:
 					break;
 			}
-			//exitBattle;
-			if (enemies.size() < 1)
-			{
-				exitBattle = true;
-			}
-		}
-		
-	} while (!exitBattle);//Endless loop
+			
 }
 
 void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
@@ -231,6 +204,7 @@ void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& ene
 	{
 		bool heroesAlive = false;
 		bool enemiesAlive = false;
+		bool heroesFled = false;
 
 		for (int i = 0; i < heroes.size(); i++)// Check if heroes living
 		{
@@ -272,22 +246,49 @@ void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& ene
 					continue;
 				}
 
+				std::cout << "\n" << heroes[currentTurn.GetIndex()].GetName() << "'s turn!\n\n";
 				PlayersBattleCommand(heroes[currentTurn.GetIndex()], heroes, enemies);
-
-				std::cout << "\n" << heroes[currentTurn.GetIndex()].GetName() << "'s turn!\n";
-
-				std::cout << "Choose an enemy:\n";// Display living enemies
-
-				for (int j = 0; j < enemies.size(); j++)
-				{
-					if (enemies[j].GetHP() > 0)
-					{
-						std::cout << j << " - " << enemies[j].GetName() << " HP: " << enemies[j].GetHP() << "\n";
-					}
-				}
 			}
-			
+			else
+			{
+				if (enemies[currentTurn.GetIndex()].GetHP() <= 0)
+				{
+					continue;
+				}
+				EnemyAttack(enemies[currentTurn.GetIndex()], heroes);
+			}
 
 		}
+	}
+
+	bool heroesAlive = false;
+	bool enemiesAlive = false;
+
+	for (int i = 0; i < heroes.size(); i++)
+	{
+		if (heroes[i].GetHP() > 0)
+		{
+			heroesAlive = true;
+			break;
+		}
+	}
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (enemies[i].GetHP() > 0)
+		{
+			enemiesAlive = true;
+			break;
+		}
+	}
+	std::cout << "\n========== BATTLE OVER ==========\n\n";
+
+	if (heroesAlive)
+	{
+		std::cout << "Heroes win!\n";
+	}
+	else
+	{
+		std::cout << "Enemies win!\n";
 	}
 }

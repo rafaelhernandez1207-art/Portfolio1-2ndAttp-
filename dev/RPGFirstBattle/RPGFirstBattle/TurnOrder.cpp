@@ -179,4 +179,4 @@ void TurnOrder::CreateTurnOrder(std::vector<Heroes>& heroes, std::vector<Enemy>&
 //            }
 //        }
 //   }
-}
+
