@@ -3,6 +3,7 @@
 #include <string>
 #include "Heroes.h"
 #include "Enemy.h"
+#include "TextPrompts.h"
 
 class BattleMechanic
 {

@@ -141,7 +141,9 @@ bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 			std::cout << "1. Attack\n";
 			std::cout << "2. Defend\n";
 			std::cout << "3. Use Item\n";
-			std::cout << "4. Run away like your Life Depends on it! RETREAT!\n";
+			std::cout << "4. Run away like your Life Depends on it! RETREAT!\n\n";
+
+			std::cout << "Enter a number above (1 thru 4) to take an action: \n";
 
 			std::string battleOption = "";//Variable outside for scoping reasons
 			int numBattleOption = 0;
@@ -197,6 +199,8 @@ bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 
 void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
 {
+	std::string heroName = "";
+	TextPrompts::GameIntro(heroes[0], heroName);
 	bool fled = false;
 	while (true)
 	{
