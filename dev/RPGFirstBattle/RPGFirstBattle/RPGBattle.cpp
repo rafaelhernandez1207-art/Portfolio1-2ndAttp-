@@ -69,7 +69,6 @@ int main()
         {
         case NewGame:
             BattleMechanic::Battle(allyTeam, enemyTeam);
-            //Move game Intro into BAttle then call battle here
             break;
 
         case Exit:

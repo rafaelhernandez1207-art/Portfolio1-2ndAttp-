@@ -10,7 +10,10 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 		if (target.size() == 1)
 		{
 			std::cout << playersTurn.GetName() << " attacks " << target[0].GetName()
-				<< " for " << playersTurn.GetAttack() << " Damage!\n";
+				<< " for " << playersTurn.GetAttack() << " Damage!" << "\t" 
+				<< target[0].GetName() << "'s HP: " << target[0].GetHP() - playersTurn.GetAttack() << "\n";
+
+
 			target[0].SetHP(target[0].GetHP() - playersTurn.GetAttack());
 			target[0].SetHP((target[0].GetHP() >= 0) ? target[0].GetHP() : 0); //Prevents HP from going below zero
 
@@ -51,7 +54,9 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 					if (numTargetInput > 0 && numTargetInput <= target.size())
 					{
 						std::cout << playersTurn.GetName() << " attacks " << target[numTargetInput - 1].GetName()
-							<< " for " << playersTurn.GetAttack() << " Damage!\n";
+							<< " for " << playersTurn.GetAttack() << " Damage!\t" 
+							<< target[numTargetInput - 1].GetName() << "'s HP: " 
+							<< target[numTargetInput - 1].GetHP() - playersTurn.GetAttack() << "\n";
 
 						target[numTargetInput - 1].SetHP(target[numTargetInput - 1].GetHP() - playersTurn.GetAttack());
 						target[numTargetInput - 1].SetHP((target[numTargetInput - 1].GetHP() >= 0) ? target[numTargetInput - 1].GetHP() : 0);
@@ -105,14 +110,15 @@ void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
 				std::cout << " " << target[index].GetName() << " reduces the damage by " << damage / 2 << "!\n";
 			}
 
+		std::cout << enemiesTurn.GetName() << " attacks " << target[index].GetName() << " for " << damage << " Damage!\t";
+		std::cout << target[index].GetName() << "'s HP: " << target[index].GetHP() - enemiesTurn.GetAttack() << "\n";
+		std::cout << "Press Enter to continue\n\n";
+
 		target[index].SetHP(target[index].GetHP() - damage);
 		target[index].SetHP((target[index].GetHP() >= 0) ? target[index].GetHP() : 0);
 
-		std::cout << enemiesTurn.GetName() << " attacks " << target[index].GetName()
-			<< " for " << damage << " Damage!\n";
 		std::cin.get();
-		std::cout << "Press Enter to continue\n\n";
-
+		
 		if (target[index].GetHP() == 0)
 		{
 			isAlive = false;
