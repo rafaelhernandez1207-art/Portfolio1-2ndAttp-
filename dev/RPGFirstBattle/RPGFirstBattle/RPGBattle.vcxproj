@@ -148,6 +148,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Potion.cpp" />
     <ClCompile Include="RPGBattle.cpp" />
+    <ClCompile Include="SaveAndLoad.cpp" />
     <ClCompile Include="TextPrompts.cpp" />
     <ClCompile Include="TurnOrder.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Heroes.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Potion.h" />
+    <ClInclude Include="SaveAndLoad.h" />
     <ClInclude Include="TextPrompts.h" />
     <ClInclude Include="TurnOrder.h" />
     <ClInclude Include="Weapon.h" />

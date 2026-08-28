@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "TextPrompts.h"
 #include "BattleResult.h"
+#include "SaveAndLoad.h"
 
 class BattleMechanic
 {
@@ -14,7 +15,9 @@ public:
 		Attack = 1,
 		Defend,
 		UseItem,
-		Flee
+		Flee,
+		Save,
+		Load
 	};
 
 	static void PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target);

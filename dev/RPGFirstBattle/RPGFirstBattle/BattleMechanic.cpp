@@ -147,9 +147,11 @@ BattleResult BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vect
 			std::cout << "1. Attack\n";
 			std::cout << "2. Defend\n";
 			std::cout << "3. Use Item\n";
-			std::cout << "4. Run away like your Life Depends on it! RETREAT!\n\n";
+			std::cout << "4. Run away like your Life Depends on it! RETREAT!\n";
+			std::cout << "5. Save\n";
+			std::cout << "6. Load\n\n";
 
-			std::cout << "Enter a number above (1 thru 4) to take an action: \n";
+			std::cout << "Enter a number above (1 thru 4) to take an action or 5 to save: \n";
 
 			std::string battleOption = "";//Variable outside for scoping reasons
 			int numBattleOption = 0;
@@ -162,15 +164,15 @@ BattleResult BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vect
 				{
 					numBattleOption = std::stoi(battleOption);
 
-					if (numBattleOption > 0 && numBattleOption < 5)
+					if (numBattleOption > 0 && numBattleOption < 7)
 					{
 						break;
 					}
-					std::cout << "Invalid input, please enter 1 thru 4: ";
+					std::cout << "Invalid input, please enter 1 thru 6: ";
 				}
 				catch (...)
 				{
-					std::cout << "Invalid input, please enter 1 thru 4: ";
+					std::cout << "Invalid input, please enter 1 thru 6: ";
 				}
 
 			}
@@ -195,6 +197,13 @@ BattleResult BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vect
 					std::cout << "\nPress Enter to continue...\n";
 					std::cin.get();
 					return BattleResult::Fled;
+
+				case Save:
+					SaveAndLoad::SavePlayer(party);
+					return BattleResult::Continue;
+				case Load:
+					SaveAndLoad::LoadGame(party);
+					return BattleResult::Continue;
 
 				default:
 					std::cout << "Invalid option, try again...\n";

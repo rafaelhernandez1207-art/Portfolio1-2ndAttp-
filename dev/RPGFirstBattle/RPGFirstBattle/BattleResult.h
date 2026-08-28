@@ -3,5 +3,6 @@ enum class BattleResult
 {
 	Victory = 1,
 	Defeat,
-	Fled
+	Fled,
+	Continue
 };
