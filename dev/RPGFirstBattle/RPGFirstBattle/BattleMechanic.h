@@ -4,6 +4,7 @@
 #include "Heroes.h"
 #include "Enemy.h"
 #include "TextPrompts.h"
+#include "BattleResult.h"
 
 class BattleMechanic
 {
@@ -20,7 +21,7 @@ public:
 	static void EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target);
 
 	//Take in a return type of bool for Flee command
-	static bool PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& target);
-	static void Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies);
+	static BattleResult PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& target);
+	static BattleResult Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies);
 };
 

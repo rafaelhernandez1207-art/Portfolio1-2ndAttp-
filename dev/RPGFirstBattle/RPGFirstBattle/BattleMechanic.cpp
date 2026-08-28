@@ -127,10 +127,10 @@ void BattleMechanic::EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target)
 	}
 }
 
-bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& enemies)
+BattleResult BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& enemies)
 {
 		system("cls");
-
+		std::cout << "It is " << playersTurn.GetName() << "'s Turn!\n" <<  std::endl;
 		std::cout << playersTurn.GetName() << std::endl;
 		std::cout << "HP: " << playersTurn.GetHP() << "\n" << std::endl;
 		
@@ -179,31 +179,31 @@ bool BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroe
 			{
 				case Attack:
 					PlayerAttack(playersTurn, enemies);
-					return false;
+					break;
 
 				case Defend:
 					playersTurn.SetDefending(true);
 					std::cout << playersTurn.GetName() << " defends!";
-					return false;
+					break;
 
 				case UseItem:
 					Heroes::UsePotion(playersTurn, party);
-					return false;
+					break;
 
 				case Flee:
 					std::cout << "You have successfully Fled!!\n";
 					std::cout << "\nPress Enter to continue...\n";
 					std::cin.get();
-					return true;
+					return BattleResult::Fled;
 
 				default:
 					std::cout << "Invalid option, try again...\n";
-					return false;
+					break;
 			}
 			
 }
 
-void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
+BattleResult BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
 {
 	std::string heroName = "";
 	TextPrompts::GameIntro(heroes[0], heroName);
@@ -231,9 +231,14 @@ void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& ene
 			}
 		}
 
-		if (!heroesAlive || !enemiesAlive)// Battle is over
+		if (!heroesAlive)// Battle is over
 		{
-			break;
+			return BattleResult::Defeat;
+		}
+
+		if (!enemiesAlive)
+		{
+			return BattleResult::Victory;
 		}
 
 		std::vector<TurnOrder> turnOrder;
@@ -246,19 +251,32 @@ void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& ene
 		{
 			TurnOrder currentTurn = turnOrder[i];
 
-			if (currentTurn.GetIsHero())// HERO TURN
+			if (currentTurn.GetIsHero())// Heroes turn
 			{
 				if (heroes[currentTurn.GetIndex()].GetHP() <= 0)// Will skip hero if dead
 				{
 					continue;
 				}
+				
+				BattleResult result = PlayersBattleCommand(heroes[currentTurn.GetIndex()], heroes,enemies);
 
-				std::cout << "\n" << heroes[currentTurn.GetIndex()].GetName() << "'s turn!\n\n";
-				 fled = PlayersBattleCommand(heroes[currentTurn.GetIndex()], heroes, enemies);
-
-				if (fled)//Flee will make this true
+				if (result == BattleResult::Fled)//Flee will make this true
 				{
-					break;
+					return BattleResult::Fled;
+				}
+				bool enemiesStillAlive = false;
+
+				for (int j = 0; j < enemies.size(); j++)//Check if enemy is still alive
+				{
+					if (enemies[j].GetHP() > 0)
+					{
+						enemiesStillAlive = true;
+						break;
+					}
+				}
+				if (!enemiesStillAlive)
+				{
+					return BattleResult::Victory;
 				}
 			}
 			else
@@ -268,6 +286,21 @@ void BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& ene
 					continue;
 				}
 				EnemyAttack(enemies[currentTurn.GetIndex()], heroes);
+				bool heroesStillAlive = false;
+
+				for (int j = 0; j < heroes.size(); j++)
+				{
+					if (heroes[j].GetHP() > 0)
+					{
+						heroesStillAlive = true;
+						break;
+					}
+				}
+
+				if (!heroesStillAlive)
+				{
+					return BattleResult::Defeat;
+				}
 			}
 
 		}

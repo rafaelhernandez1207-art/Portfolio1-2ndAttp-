@@ -74,5 +74,8 @@
     <ClInclude Include="TextPrompts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BattleResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
