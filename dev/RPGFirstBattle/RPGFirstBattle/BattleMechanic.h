@@ -3,6 +3,9 @@
 #include <string>
 #include "Heroes.h"
 #include "Enemy.h"
+#include "TextPrompts.h"
+#include "BattleResult.h"
+#include "SaveAndLoad.h"
 
 class BattleMechanic
 {
@@ -12,13 +15,16 @@ public:
 		Attack = 1,
 		Defend,
 		UseItem,
-		Flee
+		Flee,
+		Save,
+		Load
 	};
 
 	static void PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target);
 	static void EnemyAttack(Enemy enemiesTurn, std::vector<Heroes>& target);
 
-	static void PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& target);
-	
+	//Take in a return type of bool for Flee command
+	static BattleResult PlayersBattleCommand(Heroes& playersTurn, std::vector<Heroes>& party, std::vector<Enemy>& target);
+	static BattleResult Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies);
 };
 

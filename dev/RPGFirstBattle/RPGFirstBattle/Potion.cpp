@@ -2,7 +2,7 @@
 
 Potion::Potion()
 {
-    mHeal = 20;
+    mHeal = 30;
 }
 
 int Potion::GetHeal()

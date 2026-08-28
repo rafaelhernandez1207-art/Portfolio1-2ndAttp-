@@ -92,4 +92,14 @@ void Character::SetSpeed(int speed)
     mSpeed = speed;
 }
 
+bool Character::GetDefending()
+{
+    return mDefending;
+}
+
+void Character::SetDefending(bool defending)
+{
+    mDefending = defending;
+}
+
 
