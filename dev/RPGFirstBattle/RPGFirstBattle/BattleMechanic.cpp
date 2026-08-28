@@ -27,7 +27,6 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 		{
 			for (int i = 0; i < target.size(); i++)
 			{
-				std::cout << i + 1 << ". " << target[i].GetName() << " HP: " << target[i].GetHP() << "\n";
 				if (target.size() > 1)
 				{
 					if (target[i].GetHP() <= 0)
@@ -42,9 +41,9 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 
 			std::string targetInput = "";
 			int numTargetInput = 0;
-
-
 			
+			while (true)
+			{
 				std::getline(std::cin, targetInput);
 				try
 				{
@@ -53,7 +52,16 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 
 					if (numTargetInput > 0 && numTargetInput <= target.size())
 					{
-						std::cout << playersTurn.GetName() << " attacks " << target[numTargetInput - 1].GetName()
+						break;
+					}
+					std::cout << "Invalid input, please enter a number between 1 or " << target.size() << ": ";
+				}
+				catch (...)
+				{
+					std::cout << "Invalid input, please enter a number between 1 or " << target.size() << ": ";
+				}
+			}
+			std::cout << playersTurn.GetName() << " attacks " << target[numTargetInput - 1].GetName()
 							<< " for " << playersTurn.GetAttack() << " Damage!\t" 
 							<< target[numTargetInput - 1].GetName() << "'s HP: " 
 							<< target[numTargetInput - 1].GetHP() - playersTurn.GetAttack() << "\n";
@@ -70,14 +78,6 @@ void BattleMechanic::PlayerAttack(Heroes playersTurn, std::vector<Enemy>& target
 							
 							isAlive = false;
 						}
-					}
-					std::cout << "Invalid input, please enter a number between 1 or " << target.size() << ": ";
-				}
-				catch (...)
-				{
-					std::cout << "Invalid input, please enter a number between 1 or " << target.size() << ": ";
-				}
-			
 		}
 }
 
@@ -205,8 +205,6 @@ BattleResult BattleMechanic::PlayersBattleCommand(Heroes& playersTurn, std::vect
 
 BattleResult BattleMechanic::Battle(std::vector<Heroes>& heroes, std::vector<Enemy>& enemies)
 {
-	std::string heroName = "";
-	TextPrompts::GameIntro(heroes[0], heroName);
 	bool fled = false;
 	while (true)
 	{

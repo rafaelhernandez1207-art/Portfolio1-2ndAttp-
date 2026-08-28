@@ -143,6 +143,7 @@
     <ClCompile Include="BattleMechanic.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FloorLevels.cpp" />
     <ClCompile Include="Heroes.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Potion.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="BattleResult.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FloorLevels.h" />
     <ClInclude Include="Heroes.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Potion.h" />

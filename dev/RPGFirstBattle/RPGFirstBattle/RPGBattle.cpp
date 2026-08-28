@@ -8,22 +8,13 @@
 #include "Enemy.h"
 #include "BattleMechanic.h"
 #include "TurnOrder.h"
+#include "FloorLevels.h"
 
 //Methods before main are foward declarations defined at the bottom
 int main()
 {
-    Heroes mainCharacter;
+    //std::vector<Potion> mainCharactersPotions = { mainCharacter.GetPotions() };
 
-    Enemy enemy;
-
-    std::vector<Potion> mainCharactersPotions = { mainCharacter.GetPotions() };
-    std::string heroName = "";
-
-    Weapon sword(12);
-    mainCharacter.EquippedWeapon(mainCharacter, sword); //default weapon for now
-
-    std::vector<Heroes> allyTeam = { mainCharacter };
-    std::vector<Enemy> enemyTeam = { enemy };
     //Enum for Menu Options
     //May add other options later (like a Load Game option)
     enum HomeScreenMenuChoice
@@ -60,7 +51,6 @@ int main()
         {
             std::cout << "Invalid input, please enter 1 or 2: ";
         }
-        
     }
     
     do
@@ -68,7 +58,7 @@ int main()
         switch (numMenuOption)
         {
         case NewGame:
-            BattleMechanic::Battle(allyTeam, enemyTeam);
+            FloorLevels::StartGame();
             break;
 
         case Exit:
